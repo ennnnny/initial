@@ -15,7 +15,35 @@
 <li><?php Postviews($this); ?></li>
 </ul>
 <div class="post-content">
-<?php $this->content(); ?>
+<?php
+//$this->content();
+$db = Typecho_Db::get();
+$sql = $db->select()->from('table.comments')
+    ->where('cid = ?', $this->cid)
+    ->where('mail = ?', $this->remember('mail', true))
+    ->limit(1);
+$result = $db->fetchAll($sql);
+if ($this->user->hasLogin() || $result) {
+    $content = preg_replace("/\[hide\](.*?)\[\/hide\]/sm", '<div style="display: block;
+    background: #dddddd;
+    padding: 10px;
+    color: #666666;
+    max-width: 100%;
+    overflow: hidden;
+    text-align: center;
+    font-size: 16px;">$1</div>', $this->content);
+} else {
+    $content = preg_replace("/\[hide\](.*?)\[\/hide\]/sm", '<div style="display: block;
+    background: #dddddd;
+    padding: 10px;
+    color: #666666;
+    max-width: 100%;
+    overflow: hidden;
+    text-align: center;
+    font-size: 16px;">此处内容需要评论回复后方可阅读。</div>', $this->content);
+}
+echo $content;
+?>
 </div>
 <?php if ($this->options->WeChat || $this->options->Alipay): ?>
 <p class="rewards">打赏: <?php if ($this->options->WeChat): ?>

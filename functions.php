@@ -553,3 +553,18 @@ function themeFields($layout) {
 	false, _t('文章目录'), _t('默认关闭，启用则会在文章内显示“文章目录”（若文章内无任何标题，则不显示目录）'));
 	$layout->addItem($catalog);
 }
+
+//回复可见
+Typecho_Plugin::factory('Widget_Abstract_Contents')->excerptEx = array('replyHidden','hidden');
+Typecho_Plugin::factory('Widget_Abstract_Contents')->contentEx = array('replyHidden','hidden');
+class replyHidden
+{
+    public static function hidden($con, $obj, $text)
+    {
+        $text = empty($text) ? $con : $text;
+        if (!$obj->is('single')) {
+            $text = preg_replace("/\[hide\](.*?)\[\/hide\]/sm", '', $text);
+        }
+        return $text;
+    }
+}
