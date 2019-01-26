@@ -33,7 +33,7 @@
 </h1>
 <?php else: ?>
 <h1>
-<a id="logo" href="<?php $this->options->siteUrl(); ?>"><?php if ($this->options->customTitle): $this->options->customTitle(); else: $this->options->title(); endif; ?></a>
+<a id="logo" href="<?php $this->options->siteUrl(); ?>"><?php if ($this->options->customTitle): $this->options->customTitle(); else: $this->options->title(); endif; ?><sub>_初生</sub></a>
 </h1>
 <?php endif; ?>
 </div>
