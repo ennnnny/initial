@@ -21,7 +21,7 @@ echo $commentClass;
 ?>">
 <div class="comment-author">
 <?php $comments->gravatar('32'); ?>
-<cite><?php CommentAuthor($comments); ?></cite>
+<cite><?php CommentAuthor($comments); ?><?php UserAgent_Plugin::render($comments->agent);?></cite>
 <?php if ($comments->authorId == $comments->ownerId) { ?>
 <span class="author-icon">Author</span>
 <?php } ?>
