@@ -13,6 +13,7 @@
 <li><?php $this->category(','); ?></li>
 <li><a href="<?php $this->permalink() ?>#comments"><?php $this->commentsNum('暂无评论', '%d 条评论'); ?></a></li>
 <li><?php Postviews($this); ?></li>
+<li><?php Like_Plugin::theLike(); ?></li>
 </ul>
 <div class="post-content">
 <?php
