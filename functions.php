@@ -189,12 +189,17 @@ function hrefOpen($obj) {
 }
 
 function UrlReplace($obj) {
-	$list = explode("\r\n", Helper::options()->AttUrlReplace);
-	foreach ($list as $tmp) {
-		list($old, $new) = explode('=', $tmp);
-		$obj = str_replace($old, $new, $obj);
-	}
-	return $obj;
+	$attUrlReplace = Helper::options()->AttUrlReplace;
+	if (!empty($attUrlReplace)) {
+        $list = explode("\r\n", Helper::options()->AttUrlReplace);
+        if (is_array($list)) {
+            foreach ($list as $tmp) {
+                list($old, $new) = explode('=', $tmp);
+                $obj = str_replace($old, $new, $obj);
+            }
+        }
+    }
+    return $obj;
 }
 
 function postThumb($obj) {
@@ -409,19 +414,22 @@ function FindContents($val = NULL, $order = 'order', $sort = 'a', $publish = NUL
 }
 
 function Whisper($sidebar = NULL) {
-	$db = Typecho_Db::get();
+//	$db = Typecho_Db::get();
 	$options = Helper::options();
 	$page = FindContents('page-whisper.php', 'commentsNum', 'd');
 	$p = $sidebar ? 'li' : 'p';
 	if (isset($page)) {
 		$page = $page[0];
-		$title = $sidebar ? '' : '<h2 class="post-title"><a href="'.$page['permalink'].'">'.$page['title'].'<span class="more">···</span></a></h2>'."\n";
-		$comment = $db->fetchAll($db->select()->from('table.comments')
-			->where('cid = ? AND status = ? AND parent = ?', $page['cid'], 'approved', '0')
-			->order('coid', Typecho_Db::SORT_DESC)
-			->limit(1));
+//        $title = $sidebar ? '' : '<h2 class="post-title"><a href="'.$page['permalink'].'">'.$page['title'].'<span class="more">···</span></a></h2>'."\n";
+		$title = $sidebar ? '' : '<h2 class="post-title"><a>'.$page['title'].'</a></h2>'."\n";
+//		$comment = $db->fetchAll($db->select()->from('table.comments')
+//			->where('cid = ? AND status = ? AND parent = ?', $page['cid'], 'approved', '0')
+//			->order('coid', Typecho_Db::SORT_DESC)
+//			->limit(1));
+		$comment = Typecho_Widget::widget('TEWeiYu_Action')->read();
 		if ($comment) {
-			$content = hrefOpen(Markdown::convert($comment[0]['text']));
+//			$content = hrefOpen(Markdown::convert($comment[0]['text']));
+            $content = hrefOpen(Markdown::convert($comment[0][0]));
 			if ($options->AttUrlReplace) {
 				$content = UrlReplace($content);
 			}
