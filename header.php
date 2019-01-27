@@ -16,7 +16,11 @@
 'author'    =>  _t('作者 %s 发布的文章')
 ), '', ' - '); ?><?php $this->options->title(); if ($this->is('index') && $this->options->subTitle): ?> - <?php $this->options->subTitle(); endif; ?></title>
 <?php $this->header('generator=&template=&pingback=&xmlrpc=&wlw=&commentReply=&rss1=&rss2=&antiSpam=&atom='); ?>
-<link rel="stylesheet" href="<?php cjUrl('style.min.css') ?>" />
+<link crossorigin="anonymous" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" href="https://lib.baomitu.com/font-awesome/5.6.3/css/font-awesome.min.css" rel="stylesheet">
+<link crossorigin="anonymous" integrity="sha384-AzQbapSukb9G0XX6IpFqo+wJTJUIh3B5Ql3x9OLq4/Td1bGT4xOk/Oehaz5y6Hef" href="https://lib.baomitu.com/layer/3.1.1/theme/default/layer.css" rel="stylesheet">
+<link rel="stylesheet" href="<?php cjUrl('/style.min.css') ?>" />
+<link rel="stylesheet" href="<?php cjUrl('/css/myself.min.css') ?>" />
+<link rel="stylesheet" href="<?php cjUrl('/css/font/fonts.css') ?>" />
 </head>
 <body <?php if ($this->options->HeadFixed): ?>class="head-fixed"<?php endif; ?>>
 <!--[if lt IE 9]>

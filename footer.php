@@ -39,6 +39,7 @@
 <?php endif; if ($this->options->AjaxLoad): ?>
 <script>var isbool=true;<?php if ($this->options->AjaxLoad == 'auto'): ?>$(window).scroll(function(){if(isbool&&$('.ajaxload .next a').attr("href")&&($(this).scrollTop()+$(window).height()+20)>=$(document).height()){isbool=false;aln()}});<?php endif; ?>function al(){$('.ajaxload li[class!="next"]').remove();$('.ajaxload .next a').click(function(){if(isbool){aln()}return false})}al();function aln(){var a='.ajaxload .next a',b=$(a).attr("href");$(a).addClass('loading').text("正在加载");if(b){$.ajax({url:b,error:function(){alert('请求失败，请检查网络并重试或者联系管理员');$(a).removeAttr("class").text("查看更多");return false},success:function(d){var c=$(d).find("#main .post"),e=$(d).find(a).attr("href");if(c){$('.ajaxload').before(c)};$(a).removeAttr("class");if(e){$(a).text("查看更多").attr("href",e)}else{$(a).remove();$('.ajaxload .next').text('没有更多文章了')}if($('.protected',d).length){$('.protected *').unbind();ap()}isbool=true;return false}})}}</script>
 <?php endif; ?>
+<script crossorigin="anonymous" integrity="sha384-Ysr53n0PIGi7rAduJ+BAMGbxA9RFQwIQfPh2bD9pf1x3vrnDsdX4SlwCNpxmrPIi" src="https://lib.baomitu.com/layer/3.1.1/layer.js"></script>
 <?php $this->footer(); ?>
 <?php if ($this->options->scrollTop || $this->options->HeadFixed || $this->options->SidebarFixed): ?>
 <script>window.onscroll=function(){var a=document.documentElement.scrollTop||document.body.scrollTop;<?php if ($this->options->scrollTop): ?>var b=document.getElementById("top");if(a>=200){b.removeAttribute("class")}else{b.setAttribute("class","hidden")}b.onclick=function totop(){var a=document.documentElement.scrollTop||document.body.scrollTop;if(a>0){requestAnimationFrame(totop);window.scrollTo(0,a-(a/5))}else{cancelAnimationFrame(totop)}};<?php endif; if ($this->options->HeadFixed): ?>var d=document.getElementById("header");if(a>0&&a<30){d.style.padding=(15-a/2)+"px 0"}else if(a>=30){d.style.padding=0}else{d.removeAttribute("style")};<?php endif; if ($this->options->SidebarFixed): ?>var e=document.getElementById("main");var f=document.getElementById("secondary");var g=document.documentElement.clientHeight;var h=<?php echo $this->options->HeadFixed ? 0 : 41 ?>;if(e.offsetHeight>f.offsetHeight){if(f.offsetHeight>g-71&&a>f.offsetHeight+101-g){if(a<e.offsetHeight+101-g){f.style.marginTop=(a-f.offsetHeight-101+g)+"px"}else{f.style.marginTop=(e.offsetHeight-f.offsetHeight)+"px"}}else if(f.offsetHeight<=g-71&&a>30+h){if(a<e.offsetHeight-f.offsetHeight+h){f.style.marginTop=(a-30-h)+"px"}else{f.style.marginTop=(e.offsetHeight-f.offsetHeight-30)+"px"}}else{f.removeAttribute("style")}}<?php endif; ?>}</script>
@@ -47,6 +48,20 @@
 <?php endif; if ($this->options->CustomContent): $this->options->CustomContent(); ?>
 
 <?php endif; ?>
+<script>
+    function wechatShare(url) {
+        var uri = "http://qr.liantu.com/api.php?text="+url;
+        layer.open({
+            type: 1, //Page层类型
+            title: '二维码，扫一扫',
+            shade: 0.6, //遮罩透明度
+            maxmin: false, //允许全屏最小化
+            anim: -1, //0-6的动画形式，-1不开启
+            shadeClose: true,
+            content: '<img src="'+uri+'" style="width:100%;" />'
+        });
+    }
+</script>
 <script>var cornertool=true;function cl(){var a=document.getElementById("catalog-col"),b=document.getElementById("catalog"),c=document.getElementById("cornertool"),d;if(a&&!b){if(c){c=c.getElementsByTagName("ul")[0];d=document.createElement("li");d.setAttribute("id","catalog");d.setAttribute("onclick","Catalogswith()");d.appendChild(document.createElement("span"));c.appendChild(d)}else{cornertool=false;c=document.createElement("div");c.setAttribute("id","cornertool");c.innerHTML='<ul><li id="catalog" onclick="Catalogswith()"><span></span></li></ul>';document.body.appendChild(c)}}if(!a&&b){cornertool?c.getElementsByTagName("ul")[0].removeChild(b):document.body.removeChild(c)}if(a&&b){b.className=a.className}}cl();console.log("\n%c Initial By JIElive %c http://www.offodd.com ","color:#fff;background:#000;padding:5px 0","color:#fff;background:#666;padding:5px 0")</script>
 </body>
 </html><?php if ($this->options->compressHtml): $html_source = ob_get_contents(); ob_clean(); print compressHtml($html_source); ob_end_flush(); endif; ?>

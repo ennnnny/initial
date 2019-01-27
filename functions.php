@@ -610,3 +610,82 @@ function spam_protection_pre($commentdata)
     }
     return $commentdata;
 }
+
+/*
+* 单独补齐链接
+*/
+function fullurl($url, $host)
+{
+    $realhost = Helper::options()->rootUrl;
+    if ($host) {
+        $realurl = lIIIIl($url, $host);
+    } else {
+        $realurl = lIIIIl($url, $realhost);
+    }
+    return preg_replace('/\"/', '', $realurl);
+}
+
+/**
+ * 补齐链接
+ */
+function lIIIIl($l1, $l2)
+{
+    $I2 = $l1;
+    if (preg_match("/(.*)(href|src)\=(.+?)( |\/\>|\>).*/i", $l1, $regs)) {
+        $I2 = $regs [3];
+    }
+    if (strlen($I2) > 0) {
+        $I1 = str_replace(chr(34), "", $I2);
+        $I1 = str_replace(chr(39), "", $I1);
+    } else {
+        return $l1;
+    }
+    $url_parsed = parse_url($l2);
+    $scheme = $url_parsed ["scheme"];
+    if ($scheme != "") {
+        $scheme = $scheme . "://";
+    }
+    $host = $url_parsed ["host"];
+    $l3 = $scheme . $host;
+    if (strlen($l3) == 0) {
+        return $l1;
+    }
+    if (!empty($url_parsed ["path"])) {
+        $path = dirname($url_parsed ["path"]);
+        if ($path [0] == "\\") {
+            $path = "";
+        }
+    } else {
+        $path = "";
+    }
+    //	$pos = strpos ( $I1, "#" );
+    //	if ($pos > 0)
+    //		$I1 = substr ( $I1, 0, $pos );
+    //判断类型
+    if (preg_match("/^(http|https|ftp):(\/\/|\\\\)(([\w\/\\\+\-~`@:%])+\.)+([\w\/\\\.\=\?\+\-~`@\':!%#]|(&amp;)|&)+/i", $I1)) {
+        return $l1;
+    } //http开头的url类型要跳过
+    elseif ($I1 [0] == "/") {
+        if (!empty($I1[1]) && $I1[1] == "/") {  //相对协议
+            return $l1;
+        } else {
+            $I1 = $l3 . $I1;
+        }
+    } //绝对路径
+    elseif (substr($I1, 0, 3) == "../") { //相对路径
+        while (substr($I1, 0, 3) == "../") {
+            $I1 = substr($I1, strlen($I1) - (strlen($I1) - 3), strlen($I1) - 3);
+            if (strlen($path) > 0) {
+                $path = dirname($path);
+            }
+        }
+        $I1 = $l3 . $path . "/" . $I1;
+    } elseif (substr($I1, 0, 2) == "./") {
+        $I1 = $l3 . $path . substr($I1, strlen($I1) - (strlen($I1) - 1), strlen($I1) - 1);
+    } elseif (strtolower(substr($I1, 0, 7)) == "mailto:" || strtolower(substr($I1, 0, 11)) == "javascript:" || strtolower(substr($I1, 0, 4)) == "tel:" || strtolower(substr($I1, 0, 10)) == "data:image") {
+        return $l1;
+    } else {
+        $I1 = $l3 . $path . "/" . $I1;
+    }
+    return str_replace($I2, "\"$I1\"", $l1);
+}
