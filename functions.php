@@ -164,6 +164,7 @@ function themeInit($archive) {
 		$options->commentsPageDisplay = 'first';
 	}
 	if ($archive->is('single')) {
+        $archive = spam_protection_pre($archive);//算术验证码
 		$archive->content = hrefOpen($archive->content);
 		if ($options->AttUrlReplace) {
 			$archive->content = UrlReplace($archive->content);
@@ -575,4 +576,37 @@ class replyHidden
         }
         return $text;
     }
+}
+
+/**
+ * 数学算术评论验证码
+ */
+function spam_protection_math()
+{
+    $num1 = rand(0, 9);
+    $num2 = rand(0, 9);
+    echo "<input type=\"text\" name=\"sum\" class=\"text\" placeholder=\"$num1 + $num2 = ? *\" value=\"\" required />";
+    echo "<input type=\"hidden\" name=\"num1\" value=\"$num1\">\n";
+    echo "<input type=\"hidden\" name=\"num2\" value=\"$num2\">";
+}
+function spam_protection_pre($commentdata)
+{
+    try {
+        if (isset($_POST['sum'])) {
+            $sum = $_POST['sum'];
+            $result = intval($_POST['num1']) + intval($_POST['num2']);
+            switch ($sum) {
+                case $result:
+                    break;
+                case null:
+                    throw new Typecho_Widget_Exception(_t('请输入验证码'));
+                    break;
+                default:
+                    throw new Typecho_Widget_Exception(_t('验证码错误，请重新输入'));
+            }
+        }
+    }catch (Exception $ex){
+        throw new Typecho_Widget_Exception(_t('验证码错误，请重新输入'));
+    }
+    return $commentdata;
 }
