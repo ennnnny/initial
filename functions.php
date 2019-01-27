@@ -592,7 +592,7 @@ function spam_protection_math()
 function spam_protection_pre($commentdata)
 {
     try {
-        if (isset($_POST['sum'])) {
+        if (isset($_POST['text'])) {
             $sum = $_POST['sum'];
             $result = intval($_POST['num1']) + intval($_POST['num2']);
             switch ($sum) {
