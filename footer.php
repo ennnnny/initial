@@ -48,19 +48,48 @@
 <?php endif; if ($this->options->CustomContent): $this->options->CustomContent(); ?>
 
 <?php endif; ?>
-<script>
-    function wechatShare(url) {
-        var uri = "http://qr.liantu.com/api.php?text="+url;
-        layer.open({
-            type: 1, //Page层类型
-            title: '二维码，扫一扫',
-            shade: 0.6, //遮罩透明度
-            maxmin: false, //允许全屏最小化
-            anim: -1, //0-6的动画形式，-1不开启
-            shadeClose: true,
-            content: '<img src="'+uri+'" style="width:100%;" />'
-        });
-    }
+<script type="text/javascript">
+function wechatShare(url) {
+    var uri = "http://qr.liantu.com/api.php?text="+url;
+    layer.open({
+        type: 1, //Page层类型
+        title: '二维码，扫一扫',
+        shade: 0.6, //遮罩透明度
+        maxmin: false, //允许全屏最小化
+        anim: -1, //0-6的动画形式，-1不开启
+        shadeClose: true,
+        content: '<img src="'+uri+'" style="width:100%;" />'
+    });
+}
+
+$(document).on('pjax:complete', function() {
+    Smilies = {
+        domId: function(id) {
+            return document.getElementById(id);
+        },
+        domTag: function(id) {
+            return document.getElementsByTagName(id)[0];
+        },
+        showBox: function() {
+            this.domId("smiliesbox").style.display = "block";
+            document.onclick = function() {
+                Smilies.closeBox();
+            }
+        },
+        closeBox: function() {
+            this.domId("smiliesbox").style.display = "none";
+        },
+        grin: function(tag) {
+            tag = ' ' + tag + ' ';
+            myField = this.domTag("textarea");
+            document.selection ? (myField.focus(), sel = document.selection.createRange(), sel.text = tag, myField.focus()) : this.insertTag(tag);
+        },
+        insertTag: function(tag) {
+            myField = Smilies.domTag("textarea");
+            myField.selectionStart || myField.selectionStart == "0" ? (startPos = myField.selectionStart, endPos = myField.selectionEnd, cursorPos = startPos, myField.value = myField.value.substring(0, startPos) + tag + myField.value.substring(endPos, myField.value.length), cursorPos += tag.length, myField.focus(), myField.selectionStart = cursorPos, myField.selectionEnd = cursorPos) : (myField.value += tag, myField.focus());
+        }
+    };
+});
 </script>
 <script>var cornertool=true;function cl(){var a=document.getElementById("catalog-col"),b=document.getElementById("catalog"),c=document.getElementById("cornertool"),d;if(a&&!b){if(c){c=c.getElementsByTagName("ul")[0];d=document.createElement("li");d.setAttribute("id","catalog");d.setAttribute("onclick","Catalogswith()");d.appendChild(document.createElement("span"));c.appendChild(d)}else{cornertool=false;c=document.createElement("div");c.setAttribute("id","cornertool");c.innerHTML='<ul><li id="catalog" onclick="Catalogswith()"><span></span></li></ul>';document.body.appendChild(c)}}if(!a&&b){cornertool?c.getElementsByTagName("ul")[0].removeChild(b):document.body.removeChild(c)}if(a&&b){b.className=a.className}}cl();console.log("\n%c Initial By JIElive %c http://www.offodd.com ","color:#fff;background:#000;padding:5px 0","color:#fff;background:#666;padding:5px 0")</script>
 </body>
