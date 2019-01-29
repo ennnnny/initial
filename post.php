@@ -3,16 +3,16 @@
 <div id="main">
 <?php if (!empty($this->options->Breadcrumbs) && in_array('Postshow', $this->options->Breadcrumbs)): ?>
 <div class="breadcrumbs">
-<a href="<?php $this->options->siteUrl(); ?>">首页</a> &raquo; <?php $this->category(); ?> &raquo; <?php if (!empty($this->options->Breadcrumbs) && in_array('Text', $this->options->Breadcrumbs)): ?>正文<?php else: $this->title(); endif; ?>
+<a href="<?php $this->options->siteUrl(); ?>"><i class="fa fa-home fa-fw" aria-hidden="true"></i>&nbsp;首页</a> &raquo; <i class="fa fa-plus-square fa-fw" aria-hidden="true"></i>&nbsp;<?php $this->category(); ?> &raquo; <i class="fa fa-file-text fa-fw" aria-hidden="true"></i>&nbsp;<?php if (!empty($this->options->Breadcrumbs) && in_array('Text', $this->options->Breadcrumbs)): ?>正文<?php else: $this->title(); endif; ?>
 </div>
 <?php endif; ?>
 <article class="post<?php if ($this->options->PjaxOption && $this->hidden): ?> protected<?php endif; ?>">
 <h1 class="post-title"><a href="<?php $this->permalink() ?>"><?php $this->title() ?></a></h1>
 <ul class="post-meta">
-<li><?php $this->date(); ?></li>
-<li><?php $this->category(','); ?></li>
-<li><a href="<?php $this->permalink() ?>#comments"><?php $this->commentsNum('暂无评论', '%d 条评论'); ?></a></li>
-<li><?php Postviews($this); ?></li>
+<li><i class="fa fa-calendar fa-fw" aria-hidden="true"></i>&nbsp;<?php $this->date(); ?></li>
+<li><i class="fa fa-plus-square fa-fw" aria-hidden="true"></i>&nbsp;<?php $this->category(','); ?></li>
+<li><i class="fa fa-commenting fa-fw" aria-hidden="true"></i>&nbsp;<a href="<?php $this->permalink() ?>#comments"><?php $this->commentsNum('暂无评论', '%d 条评论'); ?></a></li>
+<li><i class="fa fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<?php Postviews($this); ?></li>
 <li><?php Like_Plugin::theLike(); ?></li>
 </ul>
 <div class="post-content">

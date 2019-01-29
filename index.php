@@ -26,10 +26,10 @@ $this->need('header.php');
 <article class="post<?php if ($this->options->PjaxOption && $this->hidden): ?> protected<?php endif; ?>">
 <h2 class="post-title"><a href="<?php $this->permalink() ?>"><?php $this->title() ?></a></h2>
 <ul class="post-meta">
-<li><?php $this->date(); ?></li>
-<li><?php $this->category(',', false); ?></li>
-<li><?php $this->commentsNum('暂无评论', '%d 条评论'); ?></li>
-<li><?php Postviews($this); ?></li>
+<li><i class="fa fa-calendar fa-fw" aria-hidden="true"></i>&nbsp;<?php $this->date(); ?></li>
+<li><i class="fa fa-plus-square fa-fw" aria-hidden="true"></i>&nbsp;<?php $this->category(',', false); ?></li>
+<li><i class="fa fa-commenting fa-fw" aria-hidden="true"></i>&nbsp;<?php $this->commentsNum('暂无评论', '%d 条评论'); ?></li>
+<li><i class="fa fa-eye fa-fw" aria-hidden="true"></i>&nbsp;<?php Postviews($this); ?></li>
 <li><?php Like_Plugin::theLike(); ?></li>
 </ul>
 <div class="post-content">

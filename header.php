@@ -51,9 +51,9 @@
 </form>
 </div>
 <ul class="nav-menu">
-<li><a href="<?php $this->options->siteUrl(); ?>">首页</a></li>
+    <li><a href="<?php $this->options->siteUrl(); ?>"><i class="fa fa-home fa-fw" aria-hidden="true"></i>&nbsp;首页</a></li>
 <?php if (!empty($this->options->Navset) && in_array('ShowCategory', $this->options->Navset)): if (in_array('AggCategory', $this->options->Navset)): ?>
-<li class="menu-parent"><a><?php if ($this->options->CategoryText): $this->options->CategoryText(); else: ?>分类<?php endif; ?></a>
+<li class="menu-parent"><a><?php if ($this->options->CategoryText): $this->options->CategoryText(); else: ?><i class="fa fa-plus-square fa-fw" aria-hidden="true"></i>&nbsp;分类<?php endif; ?></a>
 <ul>
 <?php
 endif;
@@ -95,7 +95,17 @@ endif;
 $this->widget('Widget_Contents_Page_List')->to($pages);
 while($pages->next()):
 ?>
-<li><a href="<?php $pages->permalink(); ?>" title="<?php $pages->title(); ?>"><?php $pages->title(); ?></a></li>
+<li>
+    <a href="<?php $pages->permalink(); ?>" title="<?php $pages->title(); ?>">
+        <?php if (strpos($pages->permalink, 'archive.html') !== false): ?>
+            <i class="fa fa-list fa-fw" aria-hidden="true"></i>&nbsp;<?php $pages->title(); ?>
+        <?php elseif (strpos($pages->permalink, 'message.html') !== false): ?>
+            <i class="fa fa-inbox fa-fw" aria-hidden="true"></i>&nbsp;<?php $pages->title(); ?>
+        <?php else: ?>
+            <?php $pages->title(); ?>
+        <?php endif; ?>
+    </a>
+</li>
 <?php endwhile;
 if (in_array('AggPage', $this->options->Navset)): ?>
 </ul>

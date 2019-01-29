@@ -2,7 +2,7 @@
 <div id="secondary">
 <?php if (!empty($this->options->ShowWhisper) && in_array('sidebar', $this->options->ShowWhisper)): ?>
 <section class="widget">
-<h3 class="widget-title"><?php echo FindContents('page-whisper.php') ? FindContents('page-whisper.php', 'commentsNum', 'd')[0]['title'] : '轻语' ?></h3>
+<h3 class="widget-title"><i class="fa fa-comment fa-fw" aria-hidden="true"></i>&nbsp;<?php echo FindContents('page-whisper.php') ? FindContents('page-whisper.php', 'commentsNum', 'd')[0]['title'] : '轻语' ?></h3>
 <ul class="widget-list whisper">
 <?php Whisper(1); ?>
 <?php if ($this->user->pass('editor', true) && (!FindContents('page-whisper.php') || isset(FindContents('page-whisper.php')[1]))): ?>
@@ -13,7 +13,7 @@
 <?php endif; ?>
 <?php if (!empty($this->options->sidebarBlock) && in_array('ShowHotPosts', $this->options->sidebarBlock)): ?>
 <section class="widget">
-<h3 class="widget-title">热门文章</h3>
+<h3 class="widget-title"><i class="fa fa-fire fa-fw" aria-hidden="true"></i>&nbsp;热门文章</h3>
 <ul class="widget-list">
 <?php Contents_Post_Initial($this->options->postsListSize, 'commentsNum'); ?>
 </ul>
@@ -21,7 +21,7 @@
 <?php endif; ?>
 <?php if (!empty($this->options->sidebarBlock) && in_array('ShowRecentPosts', $this->options->sidebarBlock)): ?>
 <section class="widget">
-<h3 class="widget-title">最新文章</h3>
+<h3 class="widget-title"><i class="fa fa-flag fa-fw" aria-hidden="true"></i>&nbsp;最新文章</h3>
 <ul class="widget-list">
 <?php Contents_Post_Initial($this->options->postsListSize); ?>
 </ul>
@@ -29,7 +29,7 @@
 <?php endif; ?>
 <?php if (!empty($this->options->sidebarBlock) && in_array('ShowRecentComments', $this->options->sidebarBlock)): ?>
 <section class="widget">
-<h3 class="widget-title">最近回复</h3>
+<h3 class="widget-title"><i class="fa fa-reply-all fa-fw" aria-hidden="true"></i>&nbsp;最近回复</h3>
 <ul class="widget-list">
 <?php Contents_Comments_Initial($this->options->commentsListSize, in_array('IgnoreAuthor', $this->options->sidebarBlock) ? 1 : ''); ?>
 </ul>
@@ -37,7 +37,7 @@
 <?php endif; ?>
 <?php if (!empty($this->options->sidebarBlock) && in_array('ShowCategory', $this->options->sidebarBlock)): ?>
 <section class="widget">
-<h3 class="widget-title">分类</h3>
+<h3 class="widget-title"><i class="fa fa-plus-square fa-fw" aria-hidden="true"></i>&nbsp;分类</h3>
 <ul class="widget-tile">
 <?php $this->widget('Widget_Metas_Category_List')
 ->parse('<li><a href="{permalink}">{name}</a></li>'); ?>
@@ -46,7 +46,7 @@
 <?php endif; ?>
 <?php if (!empty($this->options->sidebarBlock) && in_array('ShowTag', $this->options->sidebarBlock)): ?>
 <section class="widget">
-<h3 class="widget-title">标签</h3>
+<h3 class="widget-title"><i class="fa fa-tags fa-fw" aria-hidden="true"></i>&nbsp;标签</h3>
 <ul class="widget-tile">
 <?php $this->widget('Widget_Metas_Tag_Cloud', 'ignoreZeroCount=1&limit=30')->to($tags); ?>
 <?php if($tags->have()): ?>
@@ -61,7 +61,7 @@
 <?php endif; ?>
 <?php if (!empty($this->options->sidebarBlock) && in_array('ShowArchive', $this->options->sidebarBlock)): ?>
 <section class="widget">
-<h3 class="widget-title">归档</h3>
+<h3 class="widget-title"><i class="fa fa-list fa-fw" aria-hidden="true"></i>&nbsp;归档</h3>
 <ul class="widget-list">
 <?php $this->widget('Widget_Contents_Post_Date', 'type=month&format=Y 年 n 月')
 ->parse('<li><a href="{permalink}">{date}</a></li>'); ?>
@@ -70,7 +70,7 @@
 <?php endif; ?>
 <?php if (!empty($this->options->ShowLinks) && in_array('sidebar', $this->options->ShowLinks)): ?>
 <section class="widget">
-<h3 class="widget-title">链接</h3>
+<h3 class="widget-title"><i class="fa fa-external-link-square fa-fw" aria-hidden="true"></i>&nbsp;链接</h3>
 <ul class="widget-tile">
 <?php Links($this->options->IndexLinksSort); ?>
 <?php if (FindContents('page-links.php', 'order', 'a', 1)): ?>
@@ -81,7 +81,7 @@
 <?php endif; ?>
 <?php if (!empty($this->options->sidebarBlock) && in_array('ShowOther', $this->options->sidebarBlock)): ?>
 <section class="widget">
-<h3 class="widget-title">其它</h3>
+<h3 class="widget-title"><i class="fa fa-rss-square fa-fw" aria-hidden="true"></i>&nbsp;其它</h3>
 <ul class="widget-list">
 <li><a href="<?php $this->options->feedUrl(); ?>" target="_blank">文章 RSS</a></li>
 <li><a href="<?php $this->options->commentsFeedUrl(); ?>" target="_blank">评论 RSS</a></li>
