@@ -65,7 +65,7 @@ echo $content;
     </p>
     <p class="tag-title continue"><i class="fa fa-forward"></i>&nbsp;继续浏览关于
         <span class="tag-list">
-            <?php if(($this->options->PjaxOption && $this->hidden) || !$this->user->hasLogin()):?>
+            <?php if($this->options->PjaxOption && $this->hidden && !$this->user->hasLogin()):?>
                 <a href="#article-content">请先验证密码</a>
             <?php else:?>
                 <?php $this->tags('', true, ''); ?>

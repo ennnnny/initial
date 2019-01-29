@@ -54,9 +54,10 @@ function wechatShare(url) {
     layer.open({
         type: 1, //Page层类型
         title: '二维码，扫一扫',
+        area: ['300px', '350px'],
         shade: 0.6, //遮罩透明度
         maxmin: false, //允许全屏最小化
-        anim: -1, //0-6的动画形式，-1不开启
+        anim: 0, //0-6的动画形式，-1不开启
         shadeClose: true,
         content: '<img src="'+uri+'" style="width:100%;" />'
     });
