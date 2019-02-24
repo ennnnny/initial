@@ -46,16 +46,22 @@ if ($this->user->hasLogin() || $result) {
 echo $content;
 ?>
 </div>
-<?php if ($this->options->WeChat || $this->options->Alipay): ?>
-<p class="rewards">打赏: <?php if ($this->options->WeChat): ?>
-<a><img src="<?php $this->options->WeChat(); ?>" alt="微信收款二维码" />微信</a><?php endif; if ($this->options->WeChat && $this->options->Alipay): ?>, <?php endif; if ($this->options->Alipay): ?>
-<a><img src="<?php $this->options->Alipay(); ?>" alt="支付宝收款二维码" />支付宝</a><?php endif; ?>
-</p>
-<?php endif; ?>
+<?php //if ($this->options->WeChat || $this->options->Alipay): ?>
+<!--<p class="rewards">打赏: --><?php //if ($this->options->WeChat): ?>
+<!--<a><img src="--><?php //$this->options->WeChat(); ?><!--" alt="微信收款二维码" />微信</a>--><?php //endif; if ($this->options->WeChat && $this->options->Alipay): ?><!--, --><?php //endif; if ($this->options->Alipay): ?>
+<!--<a><img src="--><?php //$this->options->Alipay(); ?><!--" alt="支付宝收款二维码" />支付宝</a>--><?php //endif; ?>
+<!--</p>-->
+<?php //endif; ?>
 <!--<p class="tags">标签: --><?php //$this->tags(', ', true, 'none'); ?><!--</p>-->
 <!--<p class="license">--><?php //echo $this->options->LicenseInfo ? $this->options->LicenseInfo : '本作品采用 <a rel="license nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">知识共享署名-相同方式共享 4.0 国际许可协议</a> 进行许可。' ?><!--</p>-->
 </article>
 <div class="article-extend card">
+    <?php if ($this->options->WeChat || $this->options->Alipay): ?>
+        <p class="rewards"><i class="fa fa-yen"></i>&nbsp;打赏：<?php if ($this->options->WeChat): ?>
+                <a><img src="<?php $this->options->WeChat(); ?>" alt="微信收款二维码" />微信</a><?php endif; if ($this->options->WeChat && $this->options->Alipay): ?>, <?php endif; if ($this->options->Alipay): ?>
+                <a><img src="<?php $this->options->Alipay(); ?>" alt="支付宝收款二维码" />支付宝</a><?php endif; ?>
+        </p>
+    <?php endif; ?>
     <p class="tag-title share"><i class="fa fa-share-square-o"></i>&nbsp;分享给好友：
         <span class="extend-share">
          <a title="分享到空间" rel="nofollow" class="be be be-qzone" href="//sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=<?php $this->permalink() ?>&title=<?php $this->title() ?>&pics=<?php echo fullurl($this->options->appleimg,0); ?>&desc=这篇文章写的不错，推荐看看&summary=<?php $this->excerpt(65, '......'); ?>&site=<?php $this->options->rootUrl(); ?>" target="_blank" onclick="window.open(this.href, 'qzone-share', 'width=745,height=660');return false;"></a>
