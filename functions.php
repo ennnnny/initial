@@ -355,12 +355,52 @@ function Contents_Comments_Initial($limit = 10, $ignoreAuthor = 0) {
 	$comments = $db->fetchAll($select);
 	if ($comments) {
 		foreach($comments as $comment) {
+            $comment['text'] = filter_smilies($comment['text']);
 			$parent = FindContent($comment['cid']);
 			echo '<li><a'.($parent['hidden'] && $options->PjaxOption ? '' : ' href="'.permaLink($comment).'"').' title="来自: '.$parent['title'].'">'.$comment['author'].'</a>: '.($parent['hidden'] && $options->PjaxOption ? '内容被隐藏' : Typecho_Common::subStr(strip_tags($comment['text']), 0, 35, '...')).'</li>'."\n";
 		}
 	} else {
 		echo '<li>暂无回复</li>'."\n";
 	}
+}
+
+/**
+ * 显示表情
+ * @param $text
+ * @return mixed
+ * @throws Typecho_Plugin_Exception
+ */
+function show_smilies($text)
+{
+    $options = Helper::options();
+    $settings = $options->plugin('Smilies');
+    $smurl = Typecho_Common::url('Smilies/'.urlencode($settings->smiliesset).'/',$options->pluginUrl);
+    $smsort = explode('|',$settings->smsort);
+    $smimg = array();
+    foreach ($smsort as $imgname) {
+        $smimg[] = $smurl.$imgname;
+    }
+    $pattern = array(':mrgreen:',':neutral:',':twisted:',':arrow:',':shock:',':smile:',':???:',':cool:',':evil:',':grin:',':idea:',':oops:',':razz:',':roll:',':wink:',':cry:',':eek:',':lol:',':mad:',':sad:',':!:',':?:');
+    $smtrans = array_combine($pattern,$smimg);
+    foreach ($smtrans as $k => $v){
+        $temp = '<img class="smilies" src="'.$v.'" style="max-width:21px;display:inline-block;"/>';
+        $text = str_replace($k,$temp,$text);
+    }
+    return $text;
+}
+
+/**
+ * 过滤表情
+ * @param $text
+ * @return mixed
+ */
+function filter_smilies($text)
+{
+    $pattern = array(':mrgreen:',':neutral:',':twisted:',':arrow:',':shock:',':smile:',':???:',':cool:',':evil:',':grin:',':idea:',':oops:',':razz:',':roll:',':wink:',':cry:',':eek:',':lol:',':mad:',':sad:',':!:',':?:');
+    foreach ($pattern as $v){
+        $text = str_replace($v,'',$text);
+    }
+    return $text;
 }
 
 function permaLink($obj) {
