@@ -53,6 +53,7 @@ echo $content;
 </p>
 <?php endif; ?>
 <!--<p class="tags">标签: --><?php //$this->tags(', ', true, 'none'); ?><!--</p>-->
+<!--<p class="license">--><?php //echo $this->options->LicenseInfo ? $this->options->LicenseInfo : '本作品采用 <a rel="license nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">知识共享署名-相同方式共享 4.0 国际许可协议</a> 进行许可。' ?><!--</p>-->
 </article>
 <div class="article-extend card">
     <p class="tag-title share"><i class="fa fa-share-square-o"></i>&nbsp;分享给好友：
