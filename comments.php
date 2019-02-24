@@ -77,6 +77,7 @@ echo $commentClass;
 <div style="clear:both;top-bottom: 5px;"></div>
 <?php $comments->smilies(); ?>
 <div style="clear:both;padding-bottom: 5px;"></div>
+<?php comment_pro();?>
 <button type="submit" class="submit">提交评论</button>
 </p>
 </form>

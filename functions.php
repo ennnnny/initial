@@ -579,12 +579,26 @@ class replyHidden
     }
 }
 
+function comment_pro()
+{
+    $word = array(
+        'lEJQT1qtCB5C',
+        '8xclaiCCBBGR',
+        'YfpSVpO6oTpv',
+        'kDk6GjMGmw4D',
+        'oMUHLpHhvrLg',
+        'QNY04Fufo3wI'
+    );
+    $value = array_rand($word,1);
+    echo "<input type=\"hidden\" name=\"filter_spam\" value=\"{$word[$value]}\">";
+}
+
 /**
  * 数学算术评论验证码
  */
 function spam_protection_math()
 {
-    $num1 = rand(0, 9);
+    $num1 = rand(10, 99);
     $num2 = rand(0, 9);
     echo "<input type=\"text\" name=\"sum\" class=\"text\" placeholder=\"$num1 + $num2 = ? *\" value=\"\" required />";
     echo "<input type=\"hidden\" name=\"num1\" value=\"$num1\">\n";
